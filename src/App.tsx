@@ -1,149 +1,95 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import AdminDashboard from "./pages/AdminDashboard";
-import InstructorDashboard from "./components/dashboards/InstructorDashboard";
-import StudentDashboard from "./components/dashboards/StudentDashboard";
-import ContentWriterDashboard from "./components/dashboards/ContentWriterDashboard";
-import BloggerDashboard from "./components/dashboards/BloggerDashboard";
-import CoursePlayerPage from "./pages/CoursePlayer";
-import CoursesPage from "./pages/CoursesPage";
-import InstructorsPage from "./pages/InstructorsPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
-import BlogSystem from "./components/blog/BlogSystem";
-import NotFound from "./pages/NotFound";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from '@/components/ui/sonner';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
-const queryClient = new QueryClient();
+// Pages
+import Index from '@/pages/Index';
+import HomePage from '@/pages/HomePage';
+import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
+import CoursesPage from '@/pages/CoursesPage';
+import CoursePlayerPage from '@/pages/CoursePlayer';
+import PaymentPage from '@/pages/PaymentPage';
+import InstructorsPage from '@/pages/InstructorsPage';
+import AboutPage from '@/pages/AboutPage';
+import ContactPage from '@/pages/ContactPage';
+import NotFound from '@/pages/NotFound';
+import AdminDashboard from '@/pages/AdminDashboard';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                
-                {/* Protected Routes */}
-                <Route 
-                  path="/admin/*" 
-                  element={
-                    <ProtectedRoute allowedRoles={['admin']}>
-                      <AdminDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                <Route 
-                  path="/instructor/*" 
-                  element={
-                    <ProtectedRoute allowedRoles={['instructor']}>
-                      <InstructorDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                <Route 
-                  path="/student/*" 
-                  element={
-                    <ProtectedRoute allowedRoles={['student']}>
-                      <StudentDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                <Route 
-                  path="/content-writer/*" 
-                  element={
-                    <ProtectedRoute allowedRoles={['content-writer']}>
-                      <ContentWriterDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                <Route 
-                  path="/blogger/*" 
-                  element={
-                    <ProtectedRoute allowedRoles={['blogger']}>
-                      <BloggerDashboard />
-                    </ProtectedRoute>
-                  } 
-                />
+// Dashboards
+import StudentDashboard from '@/components/dashboards/StudentDashboard';
+import InstructorDashboard from '@/components/dashboards/InstructorDashboard';
+import BloggerDashboard from '@/components/dashboards/BloggerDashboard';
+import ContentWriterDashboard from '@/components/dashboards/ContentWriterDashboard';
 
-                {/* Course Player */}
-                <Route 
-                  path="/course/:courseId" 
-                  element={
-                    <ProtectedRoute>
-                      <CoursePlayerPage />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                {/* Public content pages */}
-                <Route path="/courses" element={<CoursesPage />} />
-                <Route path="/instructors" element={<InstructorsPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/blog" element={<BlogSystem />} />
-                
-                <Route 
-                  path="/webinars" 
-                  element={
-                    <div className="container mx-auto px-4 py-8">
-                      <h1 className="text-3xl font-bold mb-4">Webinars</h1>
-                      <p className="text-gray-600">Webinar schedule coming soon.</p>
-                    </div>
-                  } 
-                />
-                
-                <Route 
-                  path="/podcasts" 
-                  element={
-                    <div className="container mx-auto px-4 py-8">
-                      <h1 className="text-3xl font-bold mb-4">Podcasts</h1>
-                      <p className="text-gray-600">Podcast library coming soon.</p>
-                    </div>
-                  } 
-                />
-                
-                <Route 
-                  path="/unauthorized" 
-                  element={
-                    <div className="container mx-auto px-4 py-8 text-center">
-                      <h1 className="text-3xl font-bold mb-4 text-red-600">Access Denied</h1>
-                      <p className="text-gray-600">You don't have permission to access this page.</p>
-                    </div>
-                  } 
-                />
+// Blog System
+import BlogSystem from '@/components/blog/BlogSystem';
 
-                {/* Catch all route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+// Webinar System
+import WebinarSystem from '@/components/webinar/WebinarSystem';
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/courses" element={<CoursesPage />} />
+              <Route path="/course/:courseId/payment" element={<PaymentPage />} />
+              <Route path="/course/:courseId/player" element={<CoursePlayerPage />} />
+              <Route path="/course/:courseId" element={<CoursePlayerPage />} />
+              <Route path="/instructors" element={<InstructorsPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/blog/*" element={<BlogSystem />} />
+              <Route path="/webinar/*" element={<WebinarSystem />} />
+              
+              {/* Protected Routes */}
+              <Route path="/admin" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/student" element={
+                <ProtectedRoute requiredRole="student">
+                  <StudentDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/instructor" element={
+                <ProtectedRoute requiredRole="instructor">
+                  <InstructorDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/blogger" element={
+                <ProtectedRoute requiredRole="blogger">
+                  <BloggerDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/dashboard/content-writer" element={
+                <ProtectedRoute requiredRole="content-writer">
+                  <ContentWriterDashboard />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </Router>
+    </AuthProvider>
+  );
+}
 
 export default App;

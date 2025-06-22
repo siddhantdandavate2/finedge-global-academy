@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,9 +16,10 @@ import {
   Award,
   TrendingUp
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CoursesPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedLevel, setSelectedLevel] = useState('all');
@@ -155,6 +155,13 @@ const CoursesPage: React.FC = () => {
     
     return matchesSearch && matchesCategory && matchesLevel && matchesPrice;
   });
+
+  const handleEnrollClick = (course: any) => {
+    // Redirect to payment page with course data
+    navigate(`/course/${course.id}/payment`, { 
+      state: { course } 
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -361,10 +368,11 @@ const CoursesPage: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                    <Link to={`/course/${course.id}`}>
-                      Enroll Now
-                    </Link>
+                  <Button 
+                    className="bg-blue-600 hover:bg-blue-700"
+                    onClick={() => handleEnrollClick(course)}
+                  >
+                    Enroll Now
                   </Button>
                 </div>
               </CardContent>

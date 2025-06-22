@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,9 +18,10 @@ import {
   ChevronRight,
   Quote
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [email, setEmail] = useState('');
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
@@ -141,6 +141,13 @@ const HomePage: React.FC = () => {
     console.log('Newsletter signup:', email);
     setEmail('');
     // Show success message
+  };
+
+  const handleEnrollClick = (course: any) => {
+    // Redirect to payment page with course data
+    navigate(`/course/${course.id}/payment`, { 
+      state: { course } 
+    });
   };
 
   return (
@@ -277,7 +284,7 @@ const HomePage: React.FC = () => {
                       <span className="text-2xl font-bold text-blue-600">${course.price}</span>
                       <span className="text-sm text-gray-500 line-through">${course.originalPrice}</span>
                     </div>
-                    <Button>
+                    <Button onClick={() => handleEnrollClick(course)}>
                       Enroll Now
                       <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
