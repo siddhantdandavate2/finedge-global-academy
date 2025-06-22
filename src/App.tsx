@@ -18,6 +18,7 @@ import InstructorsPage from '@/pages/InstructorsPage';
 import AboutPage from '@/pages/AboutPage';
 import ContactPage from '@/pages/ContactPage';
 import NotFound from '@/pages/NotFound';
+import UnauthorizedPage from '@/pages/UnauthorizedPage';
 import AdminDashboard from '@/pages/AdminDashboard';
 
 // Dashboards
@@ -52,6 +53,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/blog/*" element={<BlogSystem />} />
               <Route path="/webinar/*" element={<WebinarSystem />} />
+              <Route path="/unauthorized" element={<UnauthorizedPage />} />
               
               {/* Protected Routes */}
               <Route path="/admin" element={

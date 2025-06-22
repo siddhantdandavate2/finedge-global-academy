@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { 
   Users, 
   BookOpen, 
@@ -18,11 +19,16 @@ import {
   FileText,
   MessageSquare,
   Settings,
-  Eye
+  Eye,
+  Send,
+  Bell
 } from 'lucide-react';
+import ContentApprovalSystem from '@/components/admin/ContentApprovalSystem';
+import NotificationSystem from '@/components/notifications/NotificationSystem';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [announcement, setAnnouncement] = useState('');
 
   const stats = [
     {
@@ -52,42 +58,6 @@ const AdminDashboard: React.FC = () => {
       change: '+2.1%',
       icon: TrendingUp,
       color: 'purple'
-    }
-  ];
-
-  const pendingApprovals = [
-    {
-      id: '1',
-      type: 'Instructor Application',
-      name: 'Dr. Michael Rodriguez',
-      email: 'michael.r@email.com',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-      submitted: '2 hours ago',
-      status: 'pending'
-    },
-    {
-      id: '2',
-      type: 'Course Content',
-      name: 'Advanced Options Trading',
-      instructor: 'Sarah Johnson',
-      submitted: '5 hours ago',
-      status: 'pending'
-    },
-    {
-      id: '3',
-      type: '&webinar',
-      name: 'Market Analysis Workshop',
-      instructor: 'John Chen',
-      submitted: '1 day ago',
-      status: 'pending'
-    },
-    {
-      id: '4',
-      type: 'Blog Post',
-      name: 'Future of Cryptocurrency',
-      author: 'Emma Thompson',
-      submitted: '3 hours ago',
-      status: 'pending'
     }
   ];
 
@@ -122,6 +92,49 @@ const AdminDashboard: React.FC = () => {
     }
   ];
 
+  const userManagement = [
+    {
+      id: '1',
+      name: 'Dr. Sarah Johnson',
+      email: 'sarah@example.com',
+      role: 'Instructor',
+      status: 'Active',
+      joinDate: '2024-01-15',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face'
+    },
+    {
+      id: '2',
+      name: 'Michael Chen',
+      email: 'michael@example.com',
+      role: 'Student',
+      status: 'Active',
+      joinDate: '2024-01-18',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face'
+    },
+    {
+      id: '3',
+      name: 'Emma Rodriguez',
+      email: 'emma@example.com',
+      role: 'Content Writer',
+      status: 'Pending',
+      joinDate: '2024-01-20',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face'
+    }
+  ];
+
+  const handleSendAnnouncement = () => {
+    if (announcement.trim()) {
+      console.log('Sending announcement:', announcement);
+      // Handle announcement sending logic
+      setAnnouncement('');
+    }
+  };
+
+  const handleUserAction = (userId: string, action: string) => {
+    console.log(`${action} user:`, userId);
+    // Handle user management actions
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -152,7 +165,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-4 lg:grid-cols-6 w-full lg:w-auto">
+          <TabsList className="grid grid-cols-6 w-full">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="approvals">Approvals</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
@@ -163,47 +176,6 @@ const AdminDashboard: React.FC = () => {
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Pending Approvals */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="h-5 w-5" />
-                    Pending Approvals
-                  </CardTitle>
-                  <CardDescription>Items waiting for your review</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {pendingApprovals.slice(0, 4).map((item) => (
-                    <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        {item.type === 'Instructor Application' && (
-                          <Avatar className="h-10 w-10">
-                            <AvatarImage src={item.avatar} />
-                            <AvatarFallback>{item.name?.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                        )}
-                        <div>
-                          <p className="font-medium text-sm">{item.name}</p>
-                          <p className="text-xs text-gray-500">{item.type}</p>
-                          <p className="text-xs text-gray-400">{item.submitted}</p>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                          <CheckCircle className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="outline" className="text-red-600 border-red-200 hover:bg-red-50">
-                          <XCircle className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
               {/* Recent Activity */}
               <Card>
                 <CardHeader>
@@ -235,57 +207,38 @@ const AdminDashboard: React.FC = () => {
                   ))}
                 </CardContent>
               </Card>
+
+              {/* Platform Announcements */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Bell className="h-5 w-5" />
+                    Send Announcement
+                  </CardTitle>
+                  <CardDescription>Send platform-wide notifications</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Textarea
+                    value={announcement}
+                    onChange={(e) => setAnnouncement(e.target.value)}
+                    placeholder="Type your announcement here..."
+                    rows={4}
+                  />
+                  <Button 
+                    onClick={handleSendAnnouncement}
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    disabled={!announcement.trim()}
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Send to All Users
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
           <TabsContent value="approvals" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Pending Approvals</CardTitle>
-                <CardDescription>Review and approve content, instructors, and other submissions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {pendingApprovals.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        {item.type === 'Instructor Application' && (
-                          <Avatar>
-                            <AvatarImage src={item.avatar} />
-                            <AvatarFallback>{item.name?.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                        )}
-                        <div>
-                          <h4 className="font-medium">{item.name}</h4>
-                          <div className="flex items-center space-x-2 text-sm text-gray-500">
-                            <Badge variant="outline">{item.type}</Badge>
-                            <span>•</span>
-                            <span>{item.submitted}</span>
-                          </div>
-                          {item.email && <p className="text-sm text-gray-500">{item.email}</p>}
-                          {item.instructor && <p className="text-sm text-gray-500">by {item.instructor}</p>}
-                          {item.author && <p className="text-sm text-gray-500">by {item.author}</p>}
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button className="bg-green-600 hover:bg-green-700">
-                          <CheckCircle className="h-4 w-4 mr-2" />
-                          Approve
-                        </Button>
-                        <Button variant="outline" className="text-red-600 border-red-200 hover:bg-red-50">
-                          <XCircle className="h-4 w-4 mr-2" />
-                          Reject
-                        </Button>
-                        <Button variant="outline">
-                          <Eye className="h-4 w-4 mr-2" />
-                          Review
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <ContentApprovalSystem />
           </TabsContent>
 
           <TabsContent value="users" className="space-y-6">
@@ -295,9 +248,43 @@ const AdminDashboard: React.FC = () => {
                 <CardDescription>Manage users, roles, and permissions</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">User management interface will be implemented here</p>
+                <div className="space-y-4">
+                  {userManagement.map((user) => (
+                    <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-4">
+                        <Avatar>
+                          <AvatarImage src={user.avatar} />
+                          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h4 className="font-medium">{user.name}</h4>
+                          <p className="text-sm text-gray-500">{user.email}</p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <Badge variant="outline">{user.role}</Badge>
+                            <Badge className={user.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
+                              {user.status}
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button size="sm" variant="outline" onClick={() => handleUserAction(user.id, 'promote')}>
+                          Promote
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => handleUserAction(user.id, 'reset')}>
+                          Reset Password
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-red-600 border-red-200 hover:bg-red-50"
+                          onClick={() => handleUserAction(user.id, 'ban')}
+                        >
+                          Ban
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -312,7 +299,8 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <div className="text-center py-8">
                   <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Content management interface will be implemented here</p>
+                  <p className="text-gray-500">Advanced content management interface will be implemented here</p>
+                  <p className="text-sm text-gray-400">Manage categories, tags, featured content, and moderation</p>
                 </div>
               </CardContent>
             </Card>
@@ -327,7 +315,8 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <div className="text-center py-8">
                   <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Analytics dashboard will be implemented here</p>
+                  <p className="text-gray-500">Comprehensive analytics dashboard will be implemented here</p>
+                  <p className="text-sm text-gray-400">Revenue tracking, user engagement, course performance, and SEO metrics</p>
                 </div>
               </CardContent>
             </Card>
@@ -342,7 +331,8 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <div className="text-center py-8">
                   <Settings className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Settings interface will be implemented here</p>
+                  <p className="text-gray-500">Platform configuration interface will be implemented here</p>
+                  <p className="text-sm text-gray-400">Payment settings, email templates, security policies, and more</p>
                 </div>
               </CardContent>
             </Card>
