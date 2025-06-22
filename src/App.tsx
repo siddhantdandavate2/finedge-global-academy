@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,12 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import InstructorDashboard from "./components/dashboards/InstructorDashboard";
+import StudentDashboard from "./components/dashboards/StudentDashboard";
+import ContentWriterDashboard from "./components/dashboards/ContentWriterDashboard";
+import BloggerDashboard from "./components/dashboards/BloggerDashboard";
+import CoursePlayerPage from "./pages/CoursePlayer";
+import BlogSystem from "./components/blog/BlogSystem";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,15 +46,11 @@ const App = () => (
                   } 
                 />
                 
-                {/* Placeholder routes for other dashboards */}
                 <Route 
                   path="/instructor/*" 
                   element={
                     <ProtectedRoute allowedRoles={['instructor']}>
-                      <div className="container mx-auto px-4 py-8">
-                        <h1 className="text-3xl font-bold mb-4">Instructor Dashboard</h1>
-                        <p className="text-gray-600">Coming soon - Create and manage your courses, track student progress, and more.</p>
-                      </div>
+                      <InstructorDashboard />
                     </ProtectedRoute>
                   } 
                 />
@@ -58,10 +59,7 @@ const App = () => (
                   path="/student/*" 
                   element={
                     <ProtectedRoute allowedRoles={['student']}>
-                      <div className="container mx-auto px-4 py-8">
-                        <h1 className="text-3xl font-bold mb-4">Student Dashboard</h1>
-                        <p className="text-gray-600">Coming soon - View your enrolled courses, progress, certificates, and more.</p>
-                      </div>
+                      <StudentDashboard />
                     </ProtectedRoute>
                   } 
                 />
@@ -70,10 +68,7 @@ const App = () => (
                   path="/content-writer/*" 
                   element={
                     <ProtectedRoute allowedRoles={['content-writer']}>
-                      <div className="container mx-auto px-4 py-8">
-                        <h1 className="text-3xl font-bold mb-4">Content Writer Dashboard</h1>
-                        <p className="text-gray-600">Coming soon - Create and manage educational content and guides.</p>
-                      </div>
+                      <ContentWriterDashboard />
                     </ProtectedRoute>
                   } 
                 />
@@ -82,15 +77,22 @@ const App = () => (
                   path="/blogger/*" 
                   element={
                     <ProtectedRoute allowedRoles={['blogger']}>
-                      <div className="container mx-auto px-4 py-8">
-                        <h1 className="text-3xl font-bold mb-4">Blogger Dashboard</h1>
-                        <p className="text-gray-600">Coming soon - Write and manage your finance blog posts.</p>
-                      </div>
+                      <BloggerDashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+
+                {/* Course Player */}
+                <Route 
+                  path="/course/:courseId" 
+                  element={
+                    <ProtectedRoute>
+                      <CoursePlayerPage />
                     </ProtectedRoute>
                   } 
                 />
                 
-                {/* Public content pages (placeholders) */}
+                {/* Public content pages */}
                 <Route 
                   path="/courses" 
                   element={
@@ -101,15 +103,7 @@ const App = () => (
                   } 
                 />
                 
-                <Route 
-                  path="/blog" 
-                  element={
-                    <div className="container mx-auto px-4 py-8">
-                      <h1 className="text-3xl font-bold mb-4">Finance Blog</h1>
-                      <p className="text-gray-600">Blog section coming soon.</p>
-                    </div>
-                  } 
-                />
+                <Route path="/blog" element={<BlogSystem />} />
                 
                 <Route 
                   path="/webinars" 

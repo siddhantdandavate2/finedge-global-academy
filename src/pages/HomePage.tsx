@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,10 @@ import {
   ChevronRight,
   Globe,
   Shield,
-  Zap
+  Zap,
+  Video,
+  FileText,
+  BarChart3
 } from 'lucide-react';
 
 const featuredCourses = [
@@ -137,18 +139,19 @@ export const HomePage: React.FC = () => {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-white/20 text-white border-white/30">
-                  🚀 New AI-Powered Learning Experience
+                  🚀 AI-Powered Learning with Full LMS Features
                 </Badge>
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                   Master Finance with 
                   <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">
-                    {" "}World-Class
+                    {" "}Enterprise-Grade
                   </span>
-                  {" "}Education
+                  {" "}LMS Platform
                 </h1>
                 <p className="text-xl text-blue-100 max-w-2xl">
-                  Join 100,000+ finance professionals who've advanced their careers with Finedge. 
-                  Learn from industry experts, get AI-powered tutoring, and earn recognized certificates.
+                  Complete Learning Management System with AI tutoring, live webinars, 
+                  comprehensive dashboards, blog system, and professional certificates. 
+                  Join 100,000+ finance professionals worldwide.
                 </p>
               </div>
               
@@ -193,7 +196,7 @@ export const HomePage: React.FC = () => {
               <div className="absolute -top-4 -right-4 bg-white rounded-lg p-4 shadow-lg">
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-gray-800">Live Session</span>
+                  <span className="text-sm font-medium text-gray-800">AI Tutor Active</span>
                 </div>
               </div>
               
@@ -208,18 +211,18 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Enhanced */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Finedge?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Complete LMS Platform Features</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We combine cutting-edge technology with world-class instruction to deliver 
-              the most effective finance education platform.
+              Enterprise-grade Learning Management System with AI integration, 
+              role-based dashboards, and comprehensive content management.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -229,7 +232,8 @@ export const HomePage: React.FC = () => {
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription className="text-base">
-                  Get personalized tutoring with our advanced AI assistant that adapts to your learning style and pace.
+                  Interactive AI tutor embedded in every course with contextual help, 
+                  explanations, and personalized learning assistance.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -239,11 +243,12 @@ export const HomePage: React.FC = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-green-600" />
                 </div>
-                <CardTitle>Industry Experts</CardTitle>
+                <CardTitle>Role-Based Dashboards</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription className="text-base">
-                  Learn from former executives at Goldman Sachs, Morgan Stanley, JPMorgan, and other top firms.
+                  Dedicated dashboards for Admin, Instructor, Student, Content Writer, 
+                  and Blogger with role-specific features and permissions.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -251,13 +256,59 @@ export const HomePage: React.FC = () => {
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-purple-600" />
+                  <Video className="h-8 w-8 text-purple-600" />
                 </div>
-                <CardTitle>Globally Recognized</CardTitle>
+                <CardTitle>Live Webinars & Podcasts</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription className="text-base">
-                  Earn certificates recognized by leading financial institutions worldwide.
+                  Interactive live sessions with Q&A, chat, and recording capabilities. 
+                  Podcast hosting and management system.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileText className="h-8 w-8 text-yellow-600" />
+                </div>
+                <CardTitle>Content Management System</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <CardDescription className="text-base">
+                  Full blog system with rich editor, SEO optimization, approval workflows, 
+                  and content writer collaboration tools.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Award className="h-8 w-8 text-red-600" />
+                </div>
+                <CardTitle>Professional Certificates</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <CardDescription className="text-base">
+                  Auto-generated, verifiable certificates with QR codes, 
+                  LinkedIn integration, and blockchain verification.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BarChart3 className="h-8 w-8 text-indigo-600" />
+                </div>
+                <CardTitle>Advanced Analytics</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <CardDescription className="text-base">
+                  Comprehensive analytics for learning progress, content performance, 
+                  revenue tracking, and user engagement metrics.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -435,26 +486,46 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Enhanced CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-green-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Ready to Advance Your Finance Career?
+            Ready for Enterprise-Grade Finance Education?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join 100,000+ professionals who trust Finedge for their career growth. 
-            Start learning today with our AI-powered platform.
+            Join our comprehensive LMS platform with AI tutoring, live webinars, 
+            professional certificates, and role-based learning experiences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100" asChild>
               <Link to="/register">
-                Get Started Free
+                Start Free Trial
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              Explore Courses
+              View All Features
             </Button>
+          </div>
+          
+          {/* Feature highlights */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 pt-8 border-t border-white/20">
+            <div className="text-center">
+              <div className="text-2xl font-bold">5 Roles</div>
+              <div className="text-blue-200 text-sm">Complete Dashboards</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">AI Tutor</div>
+              <div className="text-blue-200 text-sm">Every Course</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">Live</div>
+              <div className="text-blue-200 text-sm">Webinars &amp; Q&amp;A</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">Verified</div>
+              <div className="text-blue-200 text-sm">Certificates</div>
+            </div>
           </div>
         </div>
       </section>
