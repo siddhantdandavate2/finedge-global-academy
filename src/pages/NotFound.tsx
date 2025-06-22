@@ -1,24 +1,56 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
-const NotFound = () => {
-  const location = useLocation();
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Home, ArrowLeft, Search } from 'lucide-react';
 
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
-  }, [location.pathname]);
-
+const NotFound: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="max-w-md w-full text-center">
+        <Card>
+          <CardHeader>
+            <div className="mb-4">
+              <div className="text-6xl font-bold text-blue-600 mb-2">404</div>
+              <CardTitle className="text-2xl text-gray-900">Page Not Found</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <p className="text-gray-600">
+              The page you're looking for doesn't exist or has been moved.
+            </p>
+            
+            <div className="space-y-3">
+              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                <Link to="/">
+                  <Home className="h-4 w-4 mr-2" />
+                  Go Home
+                </Link>
+              </Button>
+              
+              <Button asChild variant="outline" className="w-full">
+                <Link to="/courses">
+                  <Search className="h-4 w-4 mr-2" />
+                  Browse Courses
+                </Link>
+              </Button>
+              
+              <Button asChild variant="ghost" className="w-full">
+                <Link to="javascript:history.back()">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Go Back
+                </Link>
+              </Button>
+            </div>
+            
+            <div className="pt-4 border-t">
+              <p className="text-sm text-gray-500">
+                Need help? <Link to="/contact" className="text-blue-600 hover:underline">Contact support</Link>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

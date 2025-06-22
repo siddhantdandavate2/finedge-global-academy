@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,10 @@ import StudentDashboard from "./components/dashboards/StudentDashboard";
 import ContentWriterDashboard from "./components/dashboards/ContentWriterDashboard";
 import BloggerDashboard from "./components/dashboards/BloggerDashboard";
 import CoursePlayerPage from "./pages/CoursePlayer";
+import CoursesPage from "./pages/CoursesPage";
+import InstructorsPage from "./pages/InstructorsPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import BlogSystem from "./components/blog/BlogSystem";
 import NotFound from "./pages/NotFound";
 
@@ -93,16 +98,10 @@ const App = () => (
                 />
                 
                 {/* Public content pages */}
-                <Route 
-                  path="/courses" 
-                  element={
-                    <div className="container mx-auto px-4 py-8">
-                      <h1 className="text-3xl font-bold mb-4">Browse Courses</h1>
-                      <p className="text-gray-600">Course catalog coming soon.</p>
-                    </div>
-                  } 
-                />
-                
+                <Route path="/courses" element={<CoursesPage />} />
+                <Route path="/instructors" element={<InstructorsPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
                 <Route path="/blog" element={<BlogSystem />} />
                 
                 <Route 
@@ -121,16 +120,6 @@ const App = () => (
                     <div className="container mx-auto px-4 py-8">
                       <h1 className="text-3xl font-bold mb-4">Podcasts</h1>
                       <p className="text-gray-600">Podcast library coming soon.</p>
-                    </div>
-                  } 
-                />
-                
-                <Route 
-                  path="/instructors" 
-                  element={
-                    <div className="container mx-auto px-4 py-8">
-                      <h1 className="text-3xl font-bold mb-4">Expert Instructors</h1>
-                      <p className="text-gray-600">Instructor profiles coming soon.</p>
                     </div>
                   } 
                 />
